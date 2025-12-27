@@ -1,0 +1,205 @@
+Sí. Lo que necesitas ahora no es “resumir por resumir”, sino **refactorizar el contexto operativo** para que cualquier agente (humano o IA) pueda continuar **sin arrastrar ruido**.
+
+Abajo te dejo una **VERSIÓN REFACTORIZADA Y LIVIANA** del proyecto, **100% enfocada en Coollabora-Clinic**, eliminando todo rastro de UGC, creators, whitelist, marcas, etc.
+
+Este texto lo puedes:
+
+* usar como **contexto maestro en un nuevo chat**
+* entregar a un DEV, PM o agente IA
+* guardar como `CONTEXT_CORE.md`
+
+---
+
+# 🧠 CONTEXTO MAESTRO — COOLLABORA CLINIC (VERSIÓN REFACTORIZADA)
+
+## 1. ¿Qué es Coollabora-Clinic?
+
+Coollabora-Clinic es un **sistema de Custodia de Autoridad Clínica**, no una agencia de marketing ni una herramienta de anuncios.
+
+Su función es:
+
+> **Auditar, diagnosticar y custodiar la percepción de autoridad médica premium antes del contacto humano**, especialmente en contextos regulatorios sensibles (cirugía plástica, estética médica, dermatología quirúrgica, ORL estético).
+
+No mide capacidad clínica.
+Mide **percepción, coherencia y riesgo de erosión financiera invisible**.
+
+---
+
+## 2. Público Objetivo (Core)
+
+Profesionales médicos de **alto ticket**, principalmente en Colombia y LATAM:
+
+* Cirujanos plásticos
+* Dermatólogos quirúrgicos / estéticos
+* Otorrinolaringólogos con cirugía nasal estética
+* (Extensión futura) Clínicas especializadas premium
+
+Características del target:
+
+* Alto volumen de pacientes o alto ticket
+* Instagram como canal principal
+* Infraestructura web inexistente o descuidada
+* Alta sensibilidad a jerarquía, estatus y autoridad
+* Rechazo a marketing “barato” o lenguaje comercial
+
+---
+
+## 3. Propuesta Central
+
+Coollabora no “optimiza redes”.
+Coollabora **dictamina**.
+
+Entrega:
+
+* Auditoría automatizada inicial (gratuita)
+* Diagnóstico de erosión de autoridad
+* Proyección de impacto económico silencioso
+* Activación posterior de **Custodia Clínica supervisada**
+
+---
+
+## 4. Flujo del Usuario (Médico)
+
+1. El médico ingresa a la landing
+2. Completa un modal:
+
+   * Confirma especialidad (cirujano plástico, etc.)
+   * Instagram
+   * Email (WhatsApp opcional)
+3. Accede a un **Informe Preliminar Automatizado**
+4. Aún **NO sabe** si tendrá auditoría humana
+5. Ve:
+
+   * Scores
+   * Hallazgos
+   * Riesgos
+   * Módulos bloqueados
+6. Se le presenta:
+
+   * Ejemplo de expediente final (referencia)
+   * CTA clínico: **Activar Custodia Clínica**
+
+---
+
+## 5. Naturaleza del Informe Gratuito
+
+El informe gratuito:
+
+* **NO enseña a corregir**
+* **NO da instrucciones accionables**
+* **NO expone toda la lógica**
+* Genera:
+
+  * Tensión cognitiva
+  * Conciencia de riesgo
+  * Curiosidad técnica
+  * Sensación de “expediente incompleto”
+
+Se muestra solo la **capa superficial** del sistema.
+
+---
+
+## 6. Sistema de Scoring (Principios Clave)
+
+* Scores siempre **ENTEROS (0–10)**
+* Ausencia ≠ bajo desempeño
+
+  * Web inexistente = **0**, no “4 mal hecho”
+* El **cap más bajo domina el score global**
+* Instagram nunca puede compensar:
+
+  * Infraestructura inexistente
+  * Disonancia clínica grave
+* El score global **no se discute**, se contextualiza
+
+---
+
+## 7. Lenguaje y Posicionamiento
+
+Tono obligatorio:
+
+* Clínico
+* Observacional
+* Neutral
+* De alto estatus
+* Sin marketing
+* Sin urgencia comercial
+
+Frases tipo:
+
+* “El sistema detecta…”
+* “Se identifican patrones…”
+* “Esto no representa su capacidad clínica…”
+
+Nunca:
+
+* “Mejora tus ventas”
+* “Optimiza tu Instagram”
+* “Consigue más pacientes”
+
+---
+
+## 8. CTA y Conversión
+
+No se “vende” un producto.
+Se **habilita custodia**.
+
+Arquitectura del CTA:
+
+1. Inevitabilidad clínica (por qué la automatización no basta)
+2. Qué se activa (supervisión humana + módulos)
+3. Inversión (discreta, tardía)
+
+Ejemplos de copy:
+
+* “Activar Custodia Clínica”
+* “Iniciar Supervisión”
+* “Solicitar Liberación del Expediente”
+
+---
+
+## 9. Producto de Pago (Core)
+
+Al pagar, el médico accede a:
+
+* Informe humano supervisado
+* Diagnóstico holístico (no solo IG/web)
+* Benchmark competitivo local
+* Proyección de deterioro
+* Custodia continua (modelo membresía)
+
+El informe pagado:
+
+* Es más **descarnado**
+* Se entrega por **fases**
+* Refuerza dependencia estructural (historial, decisiones, constancia)
+
+---
+
+## 10. Visión a Largo Plazo
+
+Coollabora-Clinic evoluciona hacia:
+
+* Sistema vivo de custodia
+* Historial de decisiones “permitidas / no permitidas”
+* Oráculo de Jerarquía Clínica (consulta previa a publicar)
+* Sustituto estratégico de agencias de marketing
+
+Una vez integrado:
+
+> Salirse del sistema implica **perder memoria, criterio y blindaje**.
+
+---
+
+## 11. Lo que NO es Coollabora-Clinic (Descartado)
+
+❌ UGC
+❌ Creators
+❌ Whitelisting
+❌ Marcas
+❌ Influencer marketing
+❌ Gestión de campañas
+❌ Infraestructura UGC
+
+---
+

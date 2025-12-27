@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* Clinical Tech Palette */
+@theme {
+  --color-clinical-white: #F8FAFC;
+  --color-surgical-gray: #334155;
+  --color-cobalt-blue: #0047AB;
+  --color-premium-gold: #C5A059;
+  --color-brand-purple: #6C47FF;
+  --color-brand-teal: #00C2CB;
+}
+
+/* Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
