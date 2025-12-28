@@ -7,7 +7,10 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { ApifyClient } = require('apify-client');
+const { EMAIL_SEQUENCE, CTA_DEFINITIONS } = require('./src/data/email_templates.js');
+
 const { AUTHORITY_AUDITOR_PROMPT } = require('./src/prompts/master_prompt.js');
+const { ORACLE_PROMPT } = require('./src/prompts/oracle_prompt.js');
 const { captureWebsiteScreenshot, captureInstagramProfile } = require('./src/services/screenshotService.js');
 require('dotenv').config();
 
@@ -16,6 +19,31 @@ setGlobalOptions({ maxInstances: 10 });
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const APIFY_API_TOKEN = process.env.APIFY_API_KEY; // Note: .env uses APIFY_API_KEY
+
+// --- HELPER: Determine Visibility State (A, B, C, D) ---
+const determineVisibilityState = (instagramData, websiteContent, restrictionType) => {
+    // ESTADO D: RESTRICTED / GHOST
+    if (restrictionType === 'PRIVATE' || restrictionType === 'AGE_RESTRICTED') {
+        return 'RESTRICTED';
+    }
+
+    const hasInstagram = instagramData && instagramData.posts && instagramData.posts.length > 0;
+    const hasWebsite = websiteContent && websiteContent !== "NO PROPORCIONADA" && websiteContent !== "Error accessing website";
+
+    // ESTADO A: VISIBILIDAD COMPLETA (Web + IG)
+    if (hasInstagram && hasWebsite) return 'FULL_VISIBLE';
+
+    // ESTADO B: VISIBILIDAD PARCIAL SOCIAL (IG Only)
+    if (hasInstagram && !hasWebsite) return 'SOCIAL_ONLY';
+
+    // ESTADO C: VISIBILIDAD INSTITUCIONAL (Web Only or Weak IG)
+    // Note: If IG exists but has 0 posts it might fall here if not caught by restriction
+    if (!hasInstagram && hasWebsite) return 'WEB_ONLY';
+
+    // Fallback: If neither match perfectly but wasn't restricted, default to Restricted logic or Social Only depending on severity
+    return 'RESTRICTED';
+};
+
 
 // DEBUG: Log env var status at startup
 console.log("🔧 [ENV DEBUG] APIFY_API_TOKEN:", APIFY_API_TOKEN ? `${APIFY_API_TOKEN.substring(0, 8)}...` : "❌ MISSING");
@@ -443,6 +471,26 @@ exports.performAuthorityAudit = onCall({ cors: true, timeoutSeconds: 540 }, asyn
             report: reportText,
             identity: identity,
             visionAnalysis: visionAnalysis,
+            // --- CLINICAL TRUTH MODEL MAPPING (Normalization) ---
+            authorityScore: visionAnalysis?.globalScore || 0,
+            infrastructure: {
+                website: (websiteContent !== "NO PROPORCIONADA" && websiteContent !== "Error accessing website") ? 'present' : 'absent',
+                socialChannels: socialMediaJson ? ['IG'] : []
+            },
+            visual: {
+                congruenceLevel: visionAnalysis?.visualInfrastructure?.status === 'ALINEADO' ? 'alto' :
+                    (visionAnalysis?.visualInfrastructure?.status === 'CRÍTICO' ? 'crítico' : 'medio'),
+                shockRisk: visionAnalysis?.brandIntegrity?.status === 'CRÍTICO'
+            },
+            // Default risks (will be refined by detailed analyzeCaptionsSemiotics later)
+            regulatoryRisk: {
+                ageRestriction: restrictionType === 'AGE_RESTRICTED',
+                promotionLanguageRisk: false // Default, needs deeper text analysis
+            },
+            oratory: {
+                dominantTone: 'ambiguo', // Default placeholder
+                redFlagsDetected: []
+            },
             dataUsed: {
                 socialMediaJson: socialMediaJson,
                 instagram: socialMediaJson ? "scraped" : "fallback",
@@ -454,13 +502,29 @@ exports.performAuthorityAudit = onCall({ cors: true, timeoutSeconds: 540 }, asyn
             }
         };
 
-        // DETERMINE AUDIT STATUS BASED ON RESTRICTION
+        // DETERMINE AUDIT STATUS & VISIBILITY STATE
         const restrictionType = socialMediaJson?.restrictionType || null;
+        const visibilityState = determineVisibilityState(socialMediaJson, websiteContent, restrictionType);
+
+        // --- NEW: FILE STATUS & CTA LOGIC ---
+        // Initial state is always OBSERVATION_MODE for a new audit
+        const fileStatus = 'OBSERVATION_MODE';
+        const ctaData = CTA_DEFINITIONS[fileStatus];
+
+        // Get the specific EMAIL 1 for this state
+        const emailTriggerPayload = {
+            templateId: "EMAIL_1",
+            visibilityState: visibilityState,
+            fileStatus: fileStatus, // Link CTA to this
+            ctaData: ctaData,       // Pre-computed CTA for the email/dashboard
+            emailContent: EMAIL_SEQUENCE.INITIAL[visibilityState]
+        };
+
         const auditStatus = (restrictionType === 'AGE_RESTRICTED' || restrictionType === 'PRIVATE')
             ? 'pending_review'
             : 'complete';
 
-        console.log(`📊 [AUDIT STATUS] ${auditStatus} (Restriction: ${restrictionType || 'NONE'})`);
+        console.log(`📊 [AUDIT STATUS] ${auditStatus} | STATE: ${visibilityState} | FILE: ${fileStatus}`);
 
         // CACHE WITH ENHANCED SCHEMA
         const auditDoc = await admin.firestore().collection('audits').add({
@@ -469,16 +533,23 @@ exports.performAuthorityAudit = onCall({ cors: true, timeoutSeconds: 540 }, asyn
             createdAt: new Date(),
             auditStatus,              // 'complete' | 'pending_review'
             restrictionType,          // 'AGE_RESTRICTED' | 'PRIVATE' | null
+            visibilityState,          // A, B, C, D
+            fileStatus,               // OBSERVATION_MODE
+            emailTriggerPayload,      // Ready for Email Engine
             manualAnalysis: null,     // Field for admin manual review (Markdown)
             doctorEmail: null,        // To be captured in frontend form
             completedAt: auditStatus === 'complete' ? new Date() : null,
             ...finalResult
         });
 
-        // Add audit ID to the result for frontend reference
+        // Add to final result for frontend/reference
         finalResult.auditId = auditDoc.id;
         finalResult.auditStatus = auditStatus;
         finalResult.restrictionType = restrictionType;
+        finalResult.visibilityState = visibilityState;
+        finalResult.fileStatus = fileStatus;
+        finalResult.ctaData = ctaData;
+        finalResult.emailSequenceData = emailTriggerPayload;
 
         // TRIGGER: Notify Admin when pending_review
         if (auditStatus === 'pending_review') {
@@ -650,6 +721,82 @@ Responde SOLO en JSON válido:
 
     } catch (error) {
         logger.error("Captions analysis failed:", error);
+        throw new HttpsError('internal', error.message);
+    }
+});
+
+// ============================================
+// ORACLE ENGINE (JURISPRUDENCIA CLÍNICA)
+// ============================================
+exports.generateOracleRuling = onCall({ timeoutSeconds: 60, memory: "512MiB" }, async (request) => {
+    const { clinicalTruthModel, auditId } = request.data;
+
+    // Validate Input
+    if (!clinicalTruthModel || !auditId) {
+        throw new HttpsError('invalid-argument', 'ClinicalTruthModel and auditId are required.');
+    }
+
+    try {
+        const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+        // Use gemini-2.0-flash with low temperature for strict compliance
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: { temperature: 0.1 } });
+
+        const prompt = `
+        ${ORACLE_PROMPT}
+
+        *** CASO A JUZGAR (EVIDENCIA) ***
+        ${JSON.stringify(clinicalTruthModel, null, 2)}
+        `;
+
+        const result = await model.generateContent(prompt);
+        const responseText = result.response.text();
+
+        // Extract JSON
+        let ruling = null;
+        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            try {
+                ruling = JSON.parse(jsonMatch[0]);
+            } catch (e) {
+                logger.error("Oracle JSON Parse Failed", e);
+            }
+        }
+
+        if (!ruling) {
+            throw new HttpsError('internal', 'Oracle Failed to produce valid JSON ruling.');
+        }
+
+        // --- PHASE 3: INTENT ECONOMY (COMPENSATORY LOGIC) ---
+        // Infer hidden intent from risks
+        let compensatoryIntent = "Busca validación externa"; // Default
+        const risks = clinicalTruthModel.regulatoryRisk || {};
+        const infra = clinicalTruthModel.infrastructure || {};
+
+        if (risks.promotionLanguageRisk) compensatoryIntent = "Dependencia de promoción (Miedo a invisibilidad)";
+        if (risks.ageRestriction) compensatoryIntent = "Miedo a censura (Busca atajos)";
+        if (infra.website === 'absent') compensatoryIntent = "Compensación por falta de infraestructura (Volumen en RRSS)";
+
+        logger.info(`🧠 [INTENT] Audit ${auditId}: ${compensatoryIntent}`);
+
+        // Persist Ruling + Intent to Firestore
+        await admin.firestore().collection('audits').doc(auditId).update({
+            oracleRuling: ruling.oracleRuling,
+            computedIntent: compensatoryIntent,
+            lastUpdated: admin.firestore.FieldValue.serverTimestamp()
+        });
+
+        // Also log to intent_logs collection for aggregate analysis
+        await admin.firestore().collection('intent_logs').add({
+            auditId,
+            doctorId: clinicalTruthModel.doctorId || 'anon',
+            intent: compensatoryIntent,
+            timestamp: admin.firestore.FieldValue.serverTimestamp()
+        });
+
+        return { ...ruling, computedIntent: compensatoryIntent };
+
+    } catch (error) {
+        logger.error("Oracle Execution Failed:", error);
         throw new HttpsError('internal', error.message);
     }
 });

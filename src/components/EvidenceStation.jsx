@@ -93,8 +93,8 @@ const ScreenshotModule = ({ auditId, screenshots, onUpdate }) => {
             <div
                 {...getRootProps()}
                 className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${isDragActive
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'
                     }`}
             >
                 <input {...getInputProps()} />
@@ -156,10 +156,10 @@ const ScreenshotModule = ({ auditId, screenshots, onUpdate }) => {
                             {screenshot.aiAnalysis && (
                                 <div className="p-2 bg-slate-50 border-t text-xs">
                                     <span className={`font-bold ${screenshot.aiAnalysis.clasificacion === 'Erosión Crítica'
-                                            ? 'text-red-600'
-                                            : screenshot.aiAnalysis.clasificacion === 'Vulnerabilidad Moderada'
-                                                ? 'text-amber-600'
-                                                : 'text-green-600'
+                                        ? 'text-red-600'
+                                        : screenshot.aiAnalysis.clasificacion === 'Vulnerabilidad Moderada'
+                                            ? 'text-amber-600'
+                                            : 'text-green-600'
                                         }`}>
                                         {screenshot.aiAnalysis.clasificacion}
                                     </span>
@@ -247,6 +247,8 @@ const CaptionsModule = ({ captions, onChange, aiAnalysis }) => {
     );
 };
 
+import StructuredAuditForm from './StructuredAuditForm';
+
 // ============================================
 // VIDEOS MODULE (Placeholder for Sprint 3)
 // ============================================
@@ -272,32 +274,6 @@ const VideosModule = ({ videos, onUpdate }) => {
 };
 
 // ============================================
-// OBSERVATIONS MODULE (Markdown)
-// ============================================
-const ObservationsModule = ({ observations, onChange }) => {
-    return (
-        <div className="bg-white rounded-xl border border-slate-200 p-6">
-            <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center">
-                    <FileText size={20} className="text-emerald-600" />
-                </div>
-                <div>
-                    <h3 className="font-bold text-slate-800">Observaciones del Auditor</h3>
-                    <p className="text-xs text-slate-500">Veredicto Maestro (Markdown)</p>
-                </div>
-            </div>
-
-            <textarea
-                value={observations}
-                onChange={(e) => onChange(e.target.value)}
-                placeholder="## Veredicto del Auditor Senior&#10;&#10;Escribe aquí tu análisis profesional...&#10;&#10;- Hallazgo 1&#10;- Hallazgo 2&#10;&#10;**Conclusión:** "
-                className="w-full h-64 p-4 border border-slate-200 rounded-lg resize-none focus:border-emerald-500 outline-none text-sm font-mono"
-            />
-        </div>
-    );
-};
-
-// ============================================
 // MAIN EVIDENCE STATION COMPONENT
 // ============================================
 const EvidenceStation = ({ audit, onBack }) => {
@@ -309,10 +285,15 @@ const EvidenceStation = ({ audit, onBack }) => {
     const [captions, setCaptions] = useState(audit.manualEvidence?.rawCaptions || '');
     const [captionsAnalysis, setCaptionsAnalysis] = useState(audit.manualEvidence?.captionsAnalysis || null);
     const [videos, setVideos] = useState(audit.manualEvidence?.videos || []);
-    const [observations, setObservations] = useState(audit.manualEvidence?.humanObservations || '');
+    // STRUCTURED DATA STATE
+    const [structuredFindings, setStructuredFindings] = useState(audit.manualEvidence?.structuredFindings || null);
 
-    const saveProgress = async () => {
+    const saveProgress = async (formData = null) => {
         setSaving(true);
+        // If formData is passed (from auto-save), update local state
+        const findingsToSave = formData || structuredFindings;
+        if (formData) setStructuredFindings(formData);
+
         try {
             const auditRef = doc(db, 'audits', audit.id);
             await updateDoc(auditRef, {
@@ -322,7 +303,7 @@ const EvidenceStation = ({ audit, onBack }) => {
                     rawCaptions: captions,
                     captionsAnalysis,
                     videos,
-                    humanObservations: observations
+                    structuredFindings: findingsToSave // NEW SCHEMA
                 },
                 lastUpdated: Timestamp.now()
             });
@@ -345,7 +326,7 @@ const EvidenceStation = ({ audit, onBack }) => {
                     rawCaptions: captions,
                     captionsAnalysis,
                     videos,
-                    humanObservations: observations
+                    structuredFindings // NEW SCHEMA
                 },
                 completedAt: Timestamp.now(),
                 reviewedBy: 'admin' // TODO: Get from auth
@@ -378,12 +359,12 @@ const EvidenceStation = ({ audit, onBack }) => {
 
                     <div className="flex gap-2">
                         <button
-                            onClick={saveProgress}
+                            onClick={() => saveProgress()}
                             disabled={saving}
                             className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-sm font-medium flex items-center gap-2"
                         >
                             {saving && <Loader2 className="animate-spin" size={16} />}
-                            Guardar Borrador
+                            Guardar Avance
                         </button>
                         <button
                             onClick={markComplete}
@@ -411,7 +392,7 @@ const EvidenceStation = ({ audit, onBack }) => {
                         <p className="text-sm text-slate-500">
                             ID: {audit.id} | Estado:
                             <span className={`ml-1 font-medium ${audit.auditStatus === 'completed' ? 'text-emerald-600' :
-                                    audit.auditStatus === 'in_progress' ? 'text-blue-600' : 'text-amber-600'
+                                audit.auditStatus === 'in_progress' ? 'text-blue-600' : 'text-amber-600'
                                 }`}>
                                 {audit.auditStatus === 'completed' ? 'Completado' :
                                     audit.auditStatus === 'in_progress' ? 'En Proceso' : 'Pendiente'}
@@ -441,9 +422,12 @@ const EvidenceStation = ({ audit, onBack }) => {
                         videos={videos}
                         onUpdate={setVideos}
                     />
-                    <ObservationsModule
-                        observations={observations}
-                        onChange={setObservations}
+                    <StructuredAuditForm
+                        initialData={structuredFindings}
+                        onSave={(data) => {
+                            setStructuredFindings(data);
+                            saveProgress(data);
+                        }}
                     />
                 </div>
             </div>

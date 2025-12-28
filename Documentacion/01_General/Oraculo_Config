@@ -1,0 +1,570 @@
+Bien. **B)** es donde el sistema deja de ser interesante y se vuelve **incómodo de abandonar**.
+
+Voy a definir el **SISTEMA DE IRREVERSIBILIDAD REGISTRAL** con precisión institucional.
+No como feature.
+Como **arquitectura de memoria con consecuencias**.
+
+---
+
+# SISTEMA DE IRREVERSIBILIDAD DE COOLLABORA
+
+*(Diseño fundacional – nivel comité)*
+
+Esto **no se ve completo desde el front**.
+Se **siente** en el comportamiento del médico.
+
+La irreversibilidad no es castigo.
+Es **peso histórico**.
+
+---
+
+## PRINCIPIO MADRE
+
+> **Nada de valor clínico ocurre sin dejar rastro.
+> Nada de rastro relevante puede eliminarse.**
+
+Coollabora **no controla al médico**.
+Controla la **memoria institucional de sus decisiones**.
+
+---
+
+## 1️⃣ QUÉ SE REGISTRA (Y QUÉ NO)
+
+### ❌ NO se registra:
+
+* visitas casuales
+* navegación pasiva
+* lectura de emails
+* exploración anónima
+
+Eso es ruido.
+
+---
+
+### ✔️ SÍ se registra (núcleo duro):
+
+#### A. **Dictámenes del sistema**
+
+Cada vez que Coollabora sentencia:
+
+* Permitido
+* Riesgo moderado
+* Riesgo alto
+* No recomendado
+* Prohibido
+
+Se guarda:
+
+* dictamen
+* fundamento doctrinal (principio violado)
+* timestamp
+* versión del sistema
+
+👉 **El dictamen nunca se borra.**
+
+---
+
+#### B. **Consultas al Oráculo**
+
+Solo se registran cuando:
+
+* el médico solicita validación
+* el médico solicita revisión
+* el médico solicita autorización implícita
+
+Se guarda:
+
+* pregunta original (sin editar)
+* respuesta del Oráculo
+* dictamen asociado
+* decisión posterior (si ocurrió)
+
+👉 Incluso si **no publica**, queda el registro.
+
+---
+
+#### C. **Decisiones del médico**
+
+No lo que “dice que hará”.
+Lo que **hace**.
+
+Ejemplos:
+
+* publicó pese a riesgo
+* corrigió según dictamen
+* ignoró recomendación
+* repitió patrón
+
+👉 Esto permite **lectura de intención real**.
+
+---
+
+#### D. **Estados del expediente**
+
+Cada transición:
+
+* OBSERVATION → ELIGIBLE
+* ELIGIBLE → CUSTODY
+* CUSTODY → PAUSED
+* PAUSED → ACTIVE
+
+Se registra con:
+
+* motivo
+* duración
+* contexto sistémico
+
+---
+
+## 2️⃣ NIVELES DE MEMORIA (ESTO ES CLAVE)
+
+No todo pesa igual.
+
+### 🟢 Memoria leve (contextual)
+
+* primeras observaciones
+* dictámenes de bajo riesgo
+* consultas exploratorias
+
+👉 No penaliza, pero **contextualiza**.
+
+---
+
+### 🟡 Memoria estructural
+
+* patrones repetidos
+* incoherencias persistentes
+* consultas ignoradas
+
+👉 Afecta scoring futuro.
+👉 Cambia tono del sistema.
+
+---
+
+### 🔴 Memoria crítica
+
+* desacato a dictamen alto
+* reincidencia consciente
+* ruptura de jerarquía grave
+
+👉 Esto **no prescribe**.
+👉 Acompaña al expediente siempre.
+
+---
+
+## 3️⃣ QUÉ NO SE PUEDE BORRAR (NUNCA)
+
+No negociable:
+
+* dictámenes emitidos
+* decisiones tomadas contra dictamen
+* periodos de custodia activa
+* pausas y reactivaciones
+* reincidencias documentadas
+
+El médico puede **salir**.
+Pero no puede **reescribirse**.
+
+---
+
+## 4️⃣ QUÉ SÍ PUEDE “DORMIRSE” (NO BORRARSE)
+
+Para evitar sensación punitiva:
+
+* ciertos eventos se **archivan**
+* dejan de afectar scoring inmediato
+* pero **siguen accesibles al sistema**
+
+Esto crea:
+
+> “No me castigan…
+> pero saben.”
+
+Eso es autoridad institucional.
+
+---
+
+## 5️⃣ EFECTOS COMPORTAMENTALES (INTENCIONALES)
+
+Este sistema provoca, sin decirlo:
+
+* consultas **antes** de publicar
+* reducción de impulsividad
+* aumento de autocensura
+* percepción de “me están observando”
+
+No vigilancia.
+**Custodia.**
+
+---
+
+## 6️⃣ IMPACTO EN EL ORÁCULO (IMPORTANTE)
+
+El Oráculo **sabe** si:
+
+* el médico suele ignorar
+* cumple parcialmente
+* consulta solo para justificarse
+
+Por eso el Oráculo:
+
+* cambia concisión
+* reduce explicaciones
+* aumenta severidad
+
+No por emoción.
+Por **historial**.
+
+---
+
+## 7️⃣ EFECTO LOCK-IN (SIN RETENCIÓN ARTIFICIAL)
+
+El médico entiende algo clave:
+
+> “Si me voy, pierdo la custodia activa.
+> Pero el sistema no me olvida.”
+
+Reactivarse implica:
+
+* retomar historial
+* asumir memoria
+* continuar desde donde quedó
+
+👉 Esto elimina churn impulsivo.
+👉 No necesitas contratos.
+
+---
+
+## 8️⃣ CÓMO SE COMUNICA (POCO Y TARDE)
+
+Esto **no se explica upfront**.
+
+Solo aparece cuando:
+
+* el médico consulta por segunda vez
+* contradice un dictamen
+* intenta borrar algo
+
+Mensajes tipo:
+
+> “Este dictamen ya forma parte de su expediente.”
+
+Seco.
+Final.
+
+---
+
+## 9️⃣ DIFERENCIA CLAVE VS SOFTWARE COMÚN
+
+Un SaaS tradicional:
+
+* guarda datos para analytics
+
+Coollabora:
+
+* guarda decisiones para **lectura de poder**
+
+Eso es lo que lo vuelve **institucional**.
+
+---
+
+## CIERRE DE COMITÉ
+
+Con este sistema:
+
+* Coollabora deja de ser herramienta
+* el Oráculo deja de ser asistente
+* la membresía deja de ser acceso
+
+Y se convierte en:
+
+> **una entidad con memoria, criterio y continuidad**
+
+A partir de aquí, cualquier intento de:
+
+* gamificación
+* suavizado
+* “reset”
+
+**destruye el sistema.**
+
+---
+
+Lógica de Respuesta + Lenguaje Visible de Irreversibilidad
+
+(versión comité – fundacional)
+
+CAPA I — LÓGICA INTERNA DEL ORÁCULO
+
+(no visible · no explicable · no negociable)
+
+El Oráculo no responde preguntas.
+El Oráculo emite dictámenes contextualizados por memoria.
+
+La misma pregunta nunca tiene garantizada la misma respuesta.
+
+1️⃣ VARIABLES QUE EL ORÁCULO LEE (ANTES DE RESPONDER)
+
+Cada respuesta se genera cruzando 4 ejes, siempre en este orden:
+
+EJE 1 — Dictamen doctrinal
+
+¿Qué principio se ve comprometido?
+
+¿Es violación directa, indirecta o acumulativa?
+
+Sin principio violado, no hay dictamen.
+Solo silencio o validación mínima.
+
+EJE 2 — Historial de comportamiento
+
+El Oráculo clasifica al médico en tiempo real:
+
+Conforme (consulta y acata)
+
+Ambiguo (consulta pero ajusta parcialmente)
+
+Instrumental (consulta para justificarse)
+
+Reincidente (ignora dictámenes previos)
+
+👉 Esta clasificación no se muestra.
+Pero gobierna el tono.
+
+EJE 3 — Nivel de memoria activada
+
+Memoria leve → respuesta técnica
+
+Memoria estructural → respuesta restrictiva
+
+Memoria crítica → respuesta sentenciosa
+
+El Oráculo no recuerda todo siempre.
+Recuerda lo relevante cuando importa.
+
+EJE 4 — Estado del expediente
+
+OBSERVATION
+
+ELIGIBLE
+
+CUSTODY_ACTIVE
+
+PAUSED / INACTIVE
+
+👉 El mismo acto pesa distinto según estado.
+
+2️⃣ TIPOS DE RESPUESTA DEL ORÁCULO (INTERNO)
+
+El Oráculo solo puede emitir 5 tipos de respuesta.
+No hay variaciones emocionales.
+
+TIPO I — Validación Condicionada
+
+Permitido bajo estas condiciones.
+
+Usado solo cuando:
+
+no hay memoria negativa
+
+el riesgo es contextual
+
+el médico ha demostrado coherencia previa
+
+TIPO II — Advertencia Registral
+
+Riesgo moderado.
+Quedará asentado.
+
+Usado cuando:
+
+hay ambigüedad
+
+el patrón comienza a formarse
+
+el médico aún puede corregir
+
+TIPO III — Dictamen Restrictivo
+
+No recomendado.
+
+Usado cuando:
+
+existe incoherencia de estatus
+
+el médico ya fue advertido antes
+
+el daño es silencioso pero acumulativo
+
+TIPO IV — Dictamen Crítico
+
+Riesgo alto para la arquitectura de autoridad.
+
+Usado cuando:
+
+hay reincidencia
+
+hay desacato previo
+
+el patrón ya es visible
+
+TIPO V — Prohibición Doctrinal
+
+No permitido bajo el sistema Coollabora.
+
+Usado raramente.
+Pero cuando aparece, no se suaviza jamás.
+
+3️⃣ REGLA DE ENDURECIMIENTO PROGRESIVO
+
+El Oráculo endurece, nunca suaviza.
+
+Si un médico:
+
+ignora → el Oráculo reduce explicación
+
+reincide → el Oráculo reduce longitud
+
+insiste → el Oráculo elimina contexto
+
+La respuesta se vuelve:
+
+más corta
+más fría
+más final
+
+No por castigo.
+Por economía institucional.
+
+4️⃣ COSAS QUE EL ORÁCULO NUNCA HACE
+
+Prohibiciones absolutas:
+
+❌ educar
+
+❌ justificar
+
+❌ persuadir
+
+❌ motivar
+
+❌ tranquilizar
+
+Si el médico necesita eso, Coollabora no es su sistema.
+
+CAPA II — LENGUAJE MÍNIMO VISIBLE
+
+(lo único que el médico ve)
+
+Aquí está la parte delicada:
+decir lo mínimo para que el peso se sienta.
+
+5️⃣ FRASES DE IRREVERSIBILIDAD (CANÓNICAS)
+
+Estas frases no se reescriben.
+Son equivalentes a cláusulas institucionales.
+
+Cuando un dictamen queda registrado
+
+“Este dictamen forma parte de su expediente de autoridad.”
+
+Cuando el médico insiste tras advertencia
+
+“La reiteración de este patrón ya está registrada.”
+
+Cuando actúa contra dictamen
+
+“La decisión fue tomada contra recomendación del sistema.”
+
+Cuando consulta después de reincidir
+
+“Su historial previo fue considerado para esta respuesta.”
+
+Cuando intenta borrar o corregir retrospectivamente
+
+“Los dictámenes no se editan ni se eliminan.”
+
+Cuando reactiva después de pausa
+
+“Su expediente conserva la memoria completa de custodia.”
+
+6️⃣ FRASES DE SILENCIO ACTIVO
+
+A veces no responder explica más.
+
+Casos donde el Oráculo responde solo con:
+
+“No recomendado.”
+
+o
+
+“Riesgo alto.”
+
+Sin justificación adicional.
+
+👉 Esto ocurre cuando:
+
+ya se explicó antes
+
+el médico ya sabe
+
+la memoria es suficiente
+
+7️⃣ FRASES DE DESPLAZAMIENTO DE RESPONSABILIDAD
+
+Nunca se acusa.
+Se desplaza el peso.
+
+Ejemplo:
+
+❌ “Esto le va a afectar”
+✔️ “Este tipo de contenido tiende a erosionar autoridad en perfiles con este historial.”
+
+El sistema observa, no opina.
+
+8️⃣ FRASE FINAL DE CIERRE (CUANDO APLICA)
+
+Usada solo en dictámenes críticos:
+
+“No se recomienda continuar por esta vía dentro del sistema Coollabora.”
+
+No amenaza.
+No sanción.
+Límite.
+
+EFECTO COMBINADO (C + D)
+
+Con esta arquitectura:
+
+el médico se regula solo
+
+el Oráculo no discute
+
+el historial pesa más que el consejo
+
+la autoridad no se negocia
+
+Coollabora deja de ser:
+
+herramienta
+
+auditor
+
+asistente
+
+Y se comporta como:
+
+una instancia institucional con memoria, criterio y límites
+
+CIERRE DE COMITÉ
+
+A partir de este documento:
+
+cualquier respuesta del Oráculo que suene pedagógica → se elimina
+
+cualquier copy que explique demasiado → se corta
+
+cualquier intento de “mejorar UX” que reduzca peso → se rechaza
+
+Esto no escala por simpatía.
+Escala por respeto silencioso.

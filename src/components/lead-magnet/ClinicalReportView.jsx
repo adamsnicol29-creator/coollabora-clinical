@@ -1,4 +1,6 @@
-import { ShieldAlert, AlertTriangle, Activity, Lock, ArrowRight, TrendingDown, Eye, FileText, CheckCircle, Stethoscope, ClipboardList } from 'lucide-react';
+import { Share2, Download, ChevronDown, Lock, Shield, CheckCircle, AlertTriangle, FileText, Activity, TrendingDown, ClipboardList, Eye, Stethoscope, ShieldAlert } from 'lucide-react';
+import { calculateAuthorityGap } from '../../services/match_algorithm';
+import ProjectionTimeline from './ProjectionTimeline';
 import ReactMarkdown from 'react-markdown';
 import { useState } from 'react';
 import SampleReportModal from './SampleReportModal';
@@ -6,6 +8,31 @@ import ManualReviewPlaceholder from './ManualReviewPlaceholder';
 
 const ClinicalReportView = ({ report, onAction }) => {
     const [showSample, setShowSample] = useState(false);
+    const [authorityGap, setAuthorityGap] = useState(null);
+
+    useEffect(() => {
+        if (report) {
+            try {
+                // Adapt report to ClinicalTruthModel for the Algo
+                // If report structure differs slighty from Model, we map it here.
+                // Assuming report IS ClinicalTruthModel-like or contains the fields.
+                // If report comes from Firestore (generateOracleRuling), it might be inside report.clinicalTruthModel or root.
+                // We map safely.
+                const vectorModel = {
+                    authorityScoreGlobal: report.authorityScore || 0,
+                    infrastructure: report.infrastructure || { website: 'absent' },
+                    oratory: report.oratory || { dominantTone: 'ambiguo' },
+                    regulatoryRisk: report.regulatoryRisk || { ageRestriction: false, promotionLanguageRisk: false },
+                    visual: report.visual || { congruenceLevel: 'medio' }
+                };
+
+                const gapResult = calculateAuthorityGap(vectorModel);
+                setAuthorityGap(gapResult);
+            } catch (e) {
+                console.error("Error calculating Authority Gap", e);
+            }
+        }
+    }, [report]);
     const [imgError, setImgError] = useState(false);
     const [isDevUnlocked, setIsDevUnlocked] = useState(false);
 
@@ -355,38 +382,163 @@ const ClinicalReportView = ({ report, onAction }) => {
                             </div>
                         ) : (
                             /* VISTA PREMIUM (DESBLOQUEADA) */
-                            <div className="mt-12 space-y-8 animate-in fade-in duration-700">
-                                {/* TARJETA DE AUDITORÍA EN PROGRESO (48H) */}
-                                <div className="bg-emerald-50 border border-emerald-200 p-6 rounded-xl relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 p-4 opacity-10">
-                                        <Activity size={100} className="text-emerald-900" />
+                            <>
+                                {/* SECCIÓN: DICTAMEN DEL ORÁCULO (JURISPRUDENCIA CLÍNICA) */}
+                                {report.oracleRuling && (
+                                    <div className="bg-slate-900 text-white p-8 rounded-xl relative overflow-hidden shadow-2xl mb-8 border border-slate-700">
+                                        {/* TEXTURE OVERLAY */}
+                                        <div className="absolute inset-0 opacity-[0.1] pointer-events-none bg-[linear-gradient(45deg,#000_25%,transparent_25%,transparent_75%,#000_75%,#000),linear-gradient(45deg,#000_25%,transparent_25%,transparent_75%,#000_75%,#000)] [background-size:20px_20px] [background-position:0_0,10px_10px]"></div>
+
+                                        <div className="relative z-10">
+                                            <div className="flex items-center justify-between mb-8 border-b border-slate-700 pb-4">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="bg-white p-2 rounded-sm">
+                                                        <ShieldAlert className="text-slate-900" size={24} />
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-serif text-xl font-bold tracking-wider text-slate-100 uppercase">
+                                                            Dictamen Vinculante
+                                                        </h3>
+                                                        <p className="text-[10px] text-slate-400 font-mono tracking-widest uppercase">
+                                                            Jurisprudencia Clínica Digital • ID: {report.auditId?.slice(0, 8)}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right hidden md:block">
+                                                    <div className="inline-block px-3 py-1 border border-slate-600 rounded bg-slate-800 text-xs font-mono text-slate-300">
+                                                        SENTENCIA FINAL
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid md:grid-cols-12 gap-8">
+                                                {/* COL 1: TITULAR Y DICTAMEN */}
+                                                <div className="md:col-span-12 lg:col-span-8 space-y-6">
+                                                    <div>
+                                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Fallo del Tribunal de Autoridad</p>
+                                                        <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-4 leading-tight">
+                                                            "{report.oracleRuling.titular}"
+                                                        </h2>
+                                                        <p className="text-slate-300 text-lg leading-relaxed font-light border-l-2 border-slate-600 pl-4">
+                                                            {report.oracleRuling.dictamen}
+                                                        </p>
+                                                    </div>
+
+                                                    {/* FUNDAMENTO */}
+                                                    <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
+                                                            <FileText size={12} /> Fundamento de Evidencia
+                                                        </p>
+                                                        <p className="text-sm text-slate-400 font-mono">
+                                                            {report.oracleRuling.fundamento_tecnico}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                {/* COL 2: RIESGO VITAL */}
+                                                <div className="md:col-span-12 lg:col-span-4 flex flex-col justify-between bg-white text-slate-900 rounded-lg p-6">
+                                                    <div>
+                                                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-200 pb-2">
+                                                            Consecuencia Directa
+                                                        </p>
+                                                        <div className="flex items-start gap-3 mb-4">
+                                                            <TrendingDown className="text-red-600 shrink-0 mt-1" size={24} />
+                                                            <p className="text-lg font-bold text-red-700 leading-snug">
+                                                                {report.oracleRuling.riesgo_financiero}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="mt-4 pt-4 border-t border-slate-200">
+                                                        <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Precedente Citado</p>
+                                                        <p className="text-xs text-slate-600 italic">
+                                                            {report.oracleRuling.precedente_citado}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="relative z-10">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="bg-emerald-100 p-2 rounded-full">
-                                                <CheckCircle className="text-emerald-600" size={24} />
+                                )}
+
+                                {/* SECCIÓN DE INTERVENCIÓN HUMANA (NUEVO MODELO DE VERDAD) */}
+                                {report.manualEvidence?.structuredFindings ? (
+                                    <div className="bg-amber-50 border border-amber-200 p-6 rounded-xl relative overflow-hidden shadow-sm">
+                                        <div className="flex items-center gap-3 mb-6 border-b border-amber-200 pb-4">
+                                            <div className="bg-amber-100 p-2 rounded-full">
+                                                <ClipboardList className="text-amber-700" size={24} />
                                             </div>
                                             <div>
-                                                <h3 className="text-lg font-bold text-emerald-900">Membresía Activa: Expediente Liberado</h3>
-                                                <p className="text-xs text-emerald-700 font-mono">ID DE TRANSACCIÓN: PREM-8829-X</p>
+                                                <h3 className="text-lg font-bold text-amber-900 uppercase tracking-widest">
+                                                    Intervención de Custodia Clínica
+                                                </h3>
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                                                    <p className="text-xs text-amber-700 font-mono">
+                                                        AUDITORÍA HUMANA: {report.manualEvidence.structuredFindings.riskType?.toUpperCase() || "RIESGO DE AUTORIDAD"}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg border border-emerald-100 mb-4">
-                                            <h4 className="font-bold text-emerald-800 text-sm uppercase tracking-wide mb-2 flex items-center gap-2">
-                                                <Activity size={16} className="animate-pulse" /> Estado: Auditoría Profunda en Curso
-                                            </h4>
-                                            <p className="text-sm text-emerald-900 leading-relaxed">
-                                                Su solicitud ha sido escalada al equipo de Custodia Clínica. Nuestros auditores humanos están analizando los patrones semánticos y visuales de su caso.
-                                            </p>
-                                        </div>
+                                        <div className="space-y-6">
+                                            {/* HECHO FACTUAL */}
+                                            <div className="bg-white/60 p-4 rounded-lg border border-amber-100">
+                                                <h4 className="text-xs font-bold text-amber-800/60 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                                    <Eye size={12} /> Hecho Observado (Canal: {report.manualEvidence.structuredFindings.channel})
+                                                </h4>
+                                                <p className="text-amber-900 font-medium leading-relaxed">
+                                                    "{report.manualEvidence.structuredFindings.fact}"
+                                                </p>
+                                            </div>
 
-                                        <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 uppercase tracking-wider bg-emerald-100/50 px-3 py-2 rounded w-fit">
-                                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                            Tiempo Estimado de Entrega: 48 Horas
+                                            {/* NOTA ESTRATÉGICA */}
+                                            <div className="bg-white p-5 rounded-lg border-l-4 border-amber-500 shadow-sm">
+                                                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                                    <Stethoscope size={12} /> Interpretación de Impacto
+                                                </h4>
+                                                <p className="text-slate-700 leading-relaxed italic">
+                                                    "{report.manualEvidence.structuredFindings.strategicNote}"
+                                                </p>
+                                            </div>
+
+                                            {/* FOOTER DE VALIDACIÓN */}
+                                            <div className="flex justify-between items-center pt-2">
+                                                <span className="text-[10px] text-amber-700/50 uppercase font-bold tracking-widest">
+                                                    Validado por: Auditor Senior (Human-ID: 001)
+                                                </span>
+                                                {report.manualEvidence.structuredFindings.isHiddenClient && (
+                                                    <span className="bg-slate-800 text-white text-[10px] px-2 py-0.5 rounded uppercase font-bold tracking-wider">
+                                                        Mystery Shopper
+                                                    </span>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                ) : (
+                                    /* FALLBACK SI AÚN ESTÁ EN PROCESO */
+                                    <div className="bg-emerald-50 border border-emerald-200 p-6 rounded-xl relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 p-4 opacity-10">
+                                            <Activity size={100} className="text-emerald-900" />
+                                        </div>
+                                        <div className="relative z-10">
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <div className="bg-emerald-100 p-2 rounded-full">
+                                                    <CheckCircle className="text-emerald-600" size={24} />
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-lg font-bold text-emerald-900">Membresía Activa: Custodia Habilitada</h3>
+                                                    <p className="text-xs text-emerald-700 font-mono">ID: PREM-8829-X (Fase 1)</p>
+                                                </div>
+                                            </div>
+                                            <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg border border-emerald-100">
+                                                <p className="text-sm text-emerald-900 leading-relaxed">
+                                                    <strong>Acceso Total Concedido.</strong> El equipo de ingeniería clínica está procesando la "Proyección de 90 días". Recibirá la alerta en su Dashboard en 48 horas.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
 
                                 {/* SECCIÓN DE PROTOCOLO DESBLOQUEADO (SIMULACIÓN DE CONTENIDO) */}
                                 <div className="border-t border-slate-200 pt-8">
@@ -409,7 +561,7 @@ const ClinicalReportView = ({ report, onAction }) => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </>
                         )}
 
                         {/* BOTÓN DE EJEMPLO DE EXPEDIENTE */}
@@ -757,6 +909,13 @@ const ClinicalReportView = ({ report, onAction }) => {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        )}
+
+                        {/* SECCIÓN 3: PROTOCOLO DE CORRECCIÓN (90 DÍAS) - FASE 3 IMPL */}
+                        {authorityGap && (
+                            <div className="mt-12 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+                                <ProjectionTimeline correctionPhases={authorityGap.correctionPhases} />
                             </div>
                         )}
                     </>

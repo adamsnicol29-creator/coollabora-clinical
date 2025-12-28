@@ -1,0 +1,1330 @@
+Perfecto. Aquí hago exactamente lo que estás pidiendo: **poner orden, quitar ruido y convertir visión en sistema ejecutable**.
+Voy a hablarte **como jefe de marketing + arquitecto de producto**, no como ideólogo.
+
+Lo que sigue es un **PLAN MAESTRO DE PRODUCTO Y EJECUCIÓN** que puedes **copiar/pegar al DEV** y usar como documento rector.
+Nada aquí es “opcional”. Esto es **secuencia lógica**.
+
+---
+
+# COOLLABORA-CLINIC
+
+## PLAN MAESTRO DE PRODUCTO, DASHBOARDS Y FLUJOS
+
+---
+
+## 0. PRINCIPIO RECTOR (PARA TODO EL EQUIPO)
+
+> Coollabora-Clinic es un **Sistema de Custodia de Autoridad Clínica**, no un software de marketing.
+
+Todo desarrollo debe responder a una de estas preguntas:
+
+* ¿Aumenta la percepción de autoridad?
+* ¿Reduce riesgo regulatorio?
+* ¿Incrementa dependencia del sistema?
+* ¿Extiende el LTV del médico?
+
+Si no cumple al menos **1**, no se desarrolla.
+
+---
+
+# I. ARQUITECTURA DE USUARIOS
+
+### 1. Roles del sistema
+
+* **Médico (Usuario final)**
+* **Auditor Humano (Interno)**
+* **Admin Coollabora**
+* **IA Oráculo (Sistema)**
+
+---
+
+# II. DASHBOARD DEL MÉDICO (ZONA DE MIEMBROS)
+
+Este NO es un “panel bonito”.
+Es un **centro de custodia**.
+
+## 1. Dashboard Médico – Estructura
+
+### A. Vista Principal (Home)
+
+* Estado del Expediente:
+
+  * 🟢 Estable
+  * 🟡 En Riesgo
+  * 🔴 Erosión Activa
+* Índice de Autoridad Global (última lectura)
+* Alertas activas (si aplica)
+* Botón fijo: **“Consultar al Oráculo”**
+
+---
+
+### B. Expediente Clínico Digital
+
+* Historial de informes:
+
+  * Automatizados
+  * Supervisados
+* Cambios detectados por ciclo
+* Evidencia observacional (IA + humano)
+* Comparativas históricas
+
+👉 **Esto crea dependencia**: nadie más tiene este historial.
+
+---
+
+### C. Oráculo de Jerarquía Clínica
+
+(Chat persistente)
+
+**Función:**
+
+* Consultar antes de publicar
+* Debatir decisiones
+* Entender riesgos
+
+**Guardar TODO:**
+
+* Preguntas
+* Respuestas
+* Temas recurrentes
+
+Esto alimenta:
+
+* Economía de la Intención
+* Predicción de necesidades
+* Upsells contextuales
+
+---
+
+### D. Módulos (bloqueados / activos)
+
+* Benchmark competitivo
+* Proyección 90 días
+* Alertas regulatorias
+* Revisión humana avanzada
+* Sesiones 1:1
+
+Cada módulo tiene:
+
+* Estado
+* Beneficio claro
+* CTA específico
+
+---
+
+# III. DASHBOARD ADMIN (COOLLABORA)
+
+Este es **el cerebro del negocio**.
+
+## 1. Vista General
+
+* Médicos activos
+* Estados críticos
+* Renovaciones próximas
+* Riesgo de churn
+
+---
+
+## 2. Gestión de Expedientes
+
+Por cada médico:
+
+* Datos base
+* Historial completo
+* Logs del Oráculo
+* Observaciones humanas
+* Estado de custodia
+
+---
+
+## 3. Módulo de Revisión Humana
+
+### Flujo CLARO (NO IMPROVISAR):
+
+1. Se asigna expediente a auditor humano
+2. El humano **NO escribe libremente**
+3. Solo llena campos estructurados:
+
+**Inputs permitidos:**
+
+* Plataformas adicionales detectadas
+* Tipo de lenguaje observado
+* Tipo de paciente atraído
+* Flujo de contacto (si aplica)
+* Observaciones de cliente oculto
+
+**Inputs prohibidos:**
+
+* Opiniones
+* Consejos
+* Redacción libre
+
+4. El sistema:
+
+   * Guarda inputs
+   * Llama a la IA
+   * Genera informe final
+
+---
+
+## 4. Economía de la Intención (Admin)
+
+Sistema interno que detecta:
+
+* Preguntas repetidas
+* Objeciones frecuentes
+* Intereses latentes
+
+Ejemplo:
+
+> Médico pregunta 3 veces sobre precios → riesgo de atracción de paciente equivocado → upsell de sesión estratégica.
+
+---
+
+# IV. MEMBRESÍA (MODELO)
+
+## 1. Plan Base – Custodia Clínica
+
+Incluye:
+
+* Informes automáticos
+* Revisión humana básica
+* Oráculo activo
+* Dashboard completo
+
+Renovación mensual obligatoria.
+
+---
+
+## 2. Upsells
+
+### A. Sesión 1:1 (Médico)
+
+* Interpretación estratégica
+* No marketing
+* No táctico
+
+### B. Sesión 1:1 (Asistente / Secretaria)
+
+* Lenguaje
+* Filtro de pacientes
+* Protocolo de contacto
+
+### C. Custodia Extendida
+
+* Más frecuencia
+* Alertas prioritarias
+* Benchmark profundo
+
+---
+
+# V. EMAILS & CALENTAMIENTO (AUTOMATIZADO)
+
+## Secuencia post-reporte gratuito:
+
+1. **Email 1** – “Lo que el informe NO muestra”
+2. **Email 2** – “Errores invisibles en médicos exitosos”
+3. **Email 3** – “Por qué los seguidores no protegen autoridad”
+4. **Email 4** – Caso implícito (sin nombres)
+5. **Email 5** – Activación de Custodia
+
+No vender.
+**Advertir.**
+
+---
+
+# VI. PRIORIDADES PARA EL DEV (ORDEN DE EJECUCIÓN)
+
+### Sprint 1 – FUNDACIÓN
+
+* Dashboard Médico (estructura)
+* Dashboard Admin (mínimo viable)
+* Sistema de Expedientes
+* Roles y permisos
+
+### Sprint 2 – CUSTODIA
+
+* Oráculo (chat persistente)
+* Guardado de interacciones
+* Revisión humana estructurada
+
+### Sprint 3 – NEGOCIO
+
+* Membresía
+* Upsells
+* Emails
+* Renovaciones
+
+---
+
+# VII. MENSAJE FINAL PARA EL DEV (PUEDES COPIARLO)
+
+> “No estamos construyendo features.
+> Estamos construyendo un **sistema de dependencia cognitiva y custodia de autoridad**.
+> Cada módulo debe justificar su existencia en términos de:
+> autoridad, riesgo, retención o monetización.”
+
+
+
+👉 **El siguiente paso es crear el PRD (Product Requirements Document) + wireframe lógico de dashboards**.
+No seguimos ideando, **bajamos todo a plano ejecutable**.
+
+Si no hacemos esto ahora:
+
+* el DEV va a interpretar,
+* va a improvisar,
+* y el sistema va a perder coherencia de poder.
+
+---
+
+# QUÉ VAMOS A HACER AHORA (ORDEN DIRECTO)
+
+## Fase 1 — PRD CERRADO (prioridad absoluta)
+
+Vamos a producir **un solo documento maestro** con:
+
+1. **Visión del producto (1 página)**
+
+   * Qué es Coollabora-Clinic
+   * Qué NO es
+   * Principio de custodia
+
+2. **Roles del sistema**
+
+   * Médico
+   * Auditor humano
+   * Admin
+   * IA (Oráculo)
+
+3. **Flujos obligatorios (end-to-end)**
+
+   * Lead → Reporte preliminar
+   * Reporte preliminar → Membresía
+   * Membresía → Custodia mensual
+   * Custodia → Upsell 1:1
+   * Custodia → Renovación
+
+4. **Dashboard Médico (funcional, no estético)**
+
+   * Qué ve
+   * Qué puede hacer
+   * Qué NO puede hacer
+   * Qué siempre está bloqueado
+
+5. **Dashboard Admin**
+
+   * Qué controla
+   * Qué audita
+   * Qué dispara alertas
+   * Qué alimenta a la IA
+
+6. **Revisión Humana (protocolo rígido)**
+
+   * Inputs permitidos
+   * Inputs prohibidos
+   * Cómo se convierte en output IA
+
+7. **Oráculo de Jerarquía Clínica**
+
+   * Qué responde
+   * Qué NO responde
+   * Cómo guarda memoria
+   * Cómo genera dependencia
+
+8. **Modelo de membresía y upsells**
+
+   * Qué está incluido
+   * Qué se vende aparte
+   * Cuándo se ofrece (trigger)
+
+👉 Este documento **manda más que cualquier conversación futura**.
+
+---
+
+## Fase 2 — Wireframe lógico (sin diseño)
+
+Después del PRD, hago:
+
+* Mapa de pantallas:
+
+  * Landing
+  * Reporte preliminar
+  * Modal de ejemplo
+  * Dashboard médico
+  * Vista de expediente
+  * Oráculo
+  * Admin
+
+No UI bonita.
+Solo **estructura de poder**.
+
+---
+
+## Fase 3 — Instrucciones quirúrgicas al DEV
+
+Con el PRD:
+
+* tickets cerrados
+* prioridades claras
+* cero espacio para distracción
+
+---
+
+# POR QUÉ ESTE ORDEN ES CRÍTICO
+
+Porque Coollabora no se rompe por tecnología, se rompe por:
+
+* ambigüedad
+* features sueltas
+* decisiones emocionales del dev
+
+Este PRD:
+
+* protege la visión
+* protege el negocio
+* protege tu libertad (no estar encima de todo)
+
+Perfecto. Empiezo **ya**.
+
+A partir de aquí hablo como **jefe de producto y marketing de Coollabora-Clinic**.
+Esto no es brainstorming: es **documento fundacional**.
+
+---
+
+# PRD — COOLLABORA-CLINIC
+
+**Product Requirements Document (Versión 1.0)**
+**Categoría:** Custodia de Autoridad Clínica
+**Estado:** Documento Maestro — manda sobre diseño, copy y desarrollo
+
+---
+
+## 1. VISIÓN DEL PRODUCTO (NO NEGOCIABLE)
+
+### Qué es Coollabora-Clinic
+
+Coollabora-Clinic es un **sistema de custodia activa de autoridad clínica digital** para médicos de alto ticket.
+
+No analiza “marketing”.
+No optimiza “engagement”.
+**Custodia percepción, jerarquía y riesgo financiero invisible** antes del contacto humano.
+
+Opera bajo tres principios:
+
+1. **Economía de la Intención** (el paciente decide antes de hablar)
+2. **Asimetría de Autoridad** (no competir, dominar)
+3. **Custodia Continua** (la autoridad se degrada en silencio)
+
+---
+
+### Qué NO es Coollabora-Clinic
+
+❌ No es una agencia
+❌ No es un CRM
+❌ No es una plataforma de contenidos
+❌ No es una IA genérica
+❌ No es software “self-service”
+
+El médico **no ejecuta**.
+El médico **dictamina bajo custodia**.
+
+---
+
+## 2. ROLES DEL SISTEMA
+
+### 2.1 Médico (Usuario Principal)
+
+Perfil:
+
+* Cirujano plástico
+* Médico estético
+* Otorrino quirúrgico
+* Dermatólogo de procedimientos
+
+Capacidad:
+
+* Consulta
+* Validación
+* Autorización
+* Decisión
+
+Nunca:
+
+* Configura sistemas
+* Ajusta prompts
+* “Optimiza” marketing
+
+---
+
+### 2.2 Auditor Humano (Interno Coollabora)
+
+Rol silencioso, no visible como “persona”.
+
+Funciones:
+
+* Observación transversal (IG, Web, TikTok, YouTube, Pinterest)
+* Cliente oculto (secretaria / WhatsApp / llamadas)
+* Detección de incoherencias humanas que la IA no ve
+
+Produce:
+
+* **Notas estructuradas**
+* **Hallazgos clínicos**
+* **Contexto estratégico**
+
+Nunca produce:
+
+* Copy final
+* Juicios personales
+* Recomendaciones emocionales
+
+---
+
+### 2.3 IA — Oráculo de Jerarquía Clínica
+
+No es chat.
+Es **sistema de dialéctica estratégica**.
+
+Accede a:
+
+* Historial completo del médico
+* Reportes previos
+* Decisiones permitidas / prohibidas
+* Benchmark competitivo
+
+Función:
+
+* Dictaminar
+* Alertar
+* Prevenir errores
+* Mantener coherencia histórica
+
+---
+
+### 2.4 Admin (Equipo Coollabora)
+
+Controla:
+
+* Estados de expedientes
+* Auditorías humanas
+* Activación de módulos
+* Upsells
+* Alertas críticas
+
+No interactúa con médicos directamente (salvo 1:1 premium).
+
+---
+
+## 3. FLUJO END-TO-END (CORE DEL NEGOCIO)
+
+### Fase 1 — Entrada
+
+1. Médico llega por Ads / Referido
+2. Ingresa IG + Web (si existe)
+3. Valida identidad profesional
+4. Accede a **Lectura Automatizada Preliminar**
+
+👉 No sabe aún que existe auditoría humana
+
+---
+
+### Fase 2 — Reporte Preliminar (Gratis)
+
+Estado del expediente:
+
+* Observación Pasiva
+* Lectura parcial
+* Scores visibles
+* Evidencia incompleta
+
+Se activan:
+
+* Ansiedad racional
+* Curiosidad jerárquica
+* Sensación de “esto es más grande que un software”
+
+CTA:
+
+> **Activar Custodia Clínica Digital**
+
+---
+
+### Fase 3 — Activación ($197)
+
+Con la activación:
+
+* El expediente pasa a **custodia activa**
+* Se agenda auditoría humana silenciosa
+* Se desbloquea dashboard
+* Se habilita el Oráculo
+
+👉 Aquí empieza la membresía
+
+---
+
+### Fase 4 — Custodia Mensual (Renovación)
+
+Cada mes:
+
+* Reevaluación automática
+* Auditoría humana selectiva
+* Alertas predictivas
+* Registro histórico de decisiones
+
+El médico **no recibe tareas**, recibe:
+
+* Veredictos
+* Alertas
+* Permisos / prohibiciones
+
+---
+
+### Fase 5 — Upsells
+
+Triggers:
+
+* Preguntas recurrentes al Oráculo
+* Riesgos críticos detectados
+* Cambios estructurales (lanzamientos, polémicas, campañas)
+
+Upsells:
+
+* 1:1 médico
+* 1:1 médico + asistente
+* Reingeniería completa de infraestructura
+
+---
+
+## 4. DASHBOARD DEL MÉDICO (FUNCIONAL)
+
+### 4.1 Home — Estado de Autoridad
+
+Muestra:
+
+* Índice global
+* Tendencia (↑ ↓)
+* Alertas activas
+* Último dictamen
+
+Nunca muestra:
+
+* Métricas vanity
+* Likes
+* Seguidores
+* CTR
+
+---
+
+### 4.2 Expediente Clínico Digital
+
+Incluye:
+
+* Historial de reportes
+* Hallazgos humanos
+* Decisiones pasadas
+* Riesgos acumulados
+
+Formato:
+
+* Clínico
+* Secuencial
+* No editable
+
+---
+
+### 4.3 Oráculo de Jerarquía Clínica
+
+Inputs permitidos:
+
+* “¿Este video genera disonancia?”
+* “¿Este copy compromete autoridad?”
+* “¿Esto me baja de nivel frente a X competencia?”
+
+Outputs:
+
+* Dictamen
+* Riesgo
+* Alternativa permitida
+
+Todo queda **registrado**.
+
+---
+
+## 5. DASHBOARD ADMIN
+
+Funciones clave:
+
+* Ver estado de todos los expedientes
+* Asignar auditor humano
+* Subir hallazgos estructurados
+* Activar/desactivar módulos
+* Marcar oportunidades de upsell
+
+Vista crítica:
+
+* Médicos con alta dependencia del Oráculo
+* Médicos en riesgo de churn
+* Médicos listos para 1:1
+
+---
+
+## 6. AUDITORÍA HUMANA — PROTOCOLO
+
+### Inputs permitidos:
+
+* Observaciones descriptivas
+* Capturas internas
+* Transcripciones
+* Experiencia cliente oculto
+
+Formato obligatorio:
+
+* Hecho observado
+* Riesgo asociado
+* Impacto potencial
+
+### Prohibido:
+
+* Opiniones
+* Juicios morales
+* Copy de venta
+* Recomendaciones finales
+
+👉 La IA **traduce**, el humano **observa**.
+
+---
+
+## 7. MODELO DE MEMBRESÍA
+
+Incluye:
+
+* Custodia mensual
+* Oráculo
+* Auditoría humana recurrente
+* Historial estratégico
+* Alertas predictivas
+
+No incluye:
+
+* Ejecución
+* Diseño
+* Community management
+
+---
+
+## 8. PRINCIPIO DE DEPENDENCIA (CLAVE LTV)
+
+Coollabora no retiene por features.
+Retiene porque:
+
+* Guarda memoria estratégica
+* Registra decisiones permitidas/prohibidas
+* Se convierte en árbitro de autoridad
+* Centraliza el criterio clínico-digital
+
+Salir = perder:
+
+* Historial
+* Coherencia
+* Blindaje
+
+---
+
+## CIERRE DE ESTA FASE
+
+Esto es el **núcleo duro**.
+No es opinable, es estructural.
+
+Perfecto. Continúo **sin bajar el nivel**.
+Ahora entramos en **arquitectura operativa + wireframe lógico**.
+Esto es lo que el DEV necesita para **dejar de improvisar**.
+
+---
+
+# WIREFRAME LÓGICO — COOLLABORA-CLINIC
+
+*(no visual, funcional y jerárquico)*
+
+Voy **pantalla por pantalla**, con:
+
+* Objetivo psicológico
+* Qué se muestra
+* Qué NO se muestra
+* Lógica de negocio detrás
+
+---
+
+## 1. DASHBOARD MÉDICO — HOME
+
+**Pantalla más importante del sistema**
+
+### Objetivo psicológico
+
+Que el médico sienta:
+
+* “Estoy siendo observado”
+* “Aquí hay criterio”
+* “Esto no es marketing”
+
+---
+
+### Componentes
+
+#### 1.1 Estado de Autoridad Clínica (Hero)
+
+* **Índice Global:** 0–100
+* Etiqueta:
+
+  * Custodia Estable
+  * Riesgo Latente
+  * Exposición Crítica
+
+⚠️ Nunca “Excelente”, nunca “Perfecto”.
+
+---
+
+#### 1.2 Alertas Activas
+
+Formato tipo clínica:
+
+* ⚠️ Riesgo de Disonancia Pública
+* ⚠️ Incoherencia entre Canal y Jerarquía
+* ⚠️ Vulnerabilidad ante Comparación
+
+Clickable → abre dictamen, no instrucciones.
+
+---
+
+#### 1.3 Último Dictamen
+
+Texto corto, seco, clínico:
+
+> “La autoridad se mantiene estable, pero existe riesgo acumulativo por exposición informal repetitiva.”
+
+Botón:
+**Consultar al Oráculo**
+
+---
+
+#### 1.4 Línea de Tiempo (Resumen)
+
+* Última auditoría humana
+* Última alerta
+* Última decisión registrada
+
+No editable. No likes. No métricas sociales.
+
+---
+
+### ❌ No mostrar
+
+* Posts analizados
+* Fotos
+* Errores concretos
+* “Qué hiciste mal”
+
+Eso viene después.
+
+---
+
+## 2. EXPEDIENTE CLÍNICO DIGITAL
+
+*(el “archivo médico” del doctor)*
+
+### Objetivo psicológico
+
+Crear **aversión a perder el historial**.
+
+---
+
+### Secciones
+
+#### 2.1 Resumen de Perfil
+
+* Especialidad
+* Posicionamiento percibido
+* Nivel de exposición
+* Estado regulatorio comunicacional
+
+---
+
+#### 2.2 Historial de Reportes
+
+Cada entrada incluye:
+
+* Fecha
+* Tipo (Automático / Humano)
+* Estado
+* Riesgos detectados
+
+Formato tipo:
+📄 Auditoría #004 — Riesgo Moderado
+
+---
+
+#### 2.3 Hallazgos Humanos (bloque clave)
+
+Texto estructurado, no emocional:
+
+> “Se detecta coexistencia de contenido personal y clínico sin separación jerárquica clara. Potencial dilución de autoridad.”
+
+No se ve:
+
+* Captura
+* Link
+* Evidencia cruda
+
+Eso **solo en 1:1**.
+
+---
+
+#### 2.4 Decisiones Registradas
+
+Ejemplo:
+
+* “Publicación de lifestyle — No permitida”
+* “Video educativo neutro — Permitido”
+* “Testimonio emocional — Riesgo alto”
+
+Esto es **oro puro**.
+
+---
+
+## 3. ORÁCULO DE JERARQUÍA CLÍNICA
+
+*(no lo llames chat)*
+
+### Objetivo psicológico
+
+Convertir a Coollabora en **árbitro**, no consejero.
+
+---
+
+### UI
+
+Campo de consulta:
+
+> “Formule su inquietud clínica-digital”
+
+Placeholder examples:
+
+* “¿Este enfoque compromete autoridad?”
+* “¿Puedo publicar esto sin degradación?”
+* “¿Cómo me expone frente a X tipo de paciente?”
+
+---
+
+### Respuesta del Oráculo (estructura fija)
+
+1. **Dictamen**
+2. **Nivel de Riesgo**
+3. **Fundamento**
+4. **Alternativa Permitida** (si existe)
+
+Nada de emojis. Nada de cercanía.
+
+---
+
+### Registro automático
+
+Cada interacción:
+
+* Se guarda
+* Se asocia al perfil
+* Alimenta predicción de intención
+
+---
+
+## 4. REPORTE DE EJEMPLO (EL QUE GENERA CURIOSIDAD)
+
+### Objetivo
+
+Mostrar profundidad **sin regalar nada**.
+
+---
+
+### Estructura
+
+#### Portada
+
+> “Lectura Preliminar de Autoridad Clínica Digital”
+
+Subtítulo:
+
+> “Documento incompleto — Custodia no activa”
+
+---
+
+#### Índices visibles
+
+* Autoridad Percibida: 68/100
+* Riesgo Regulatorio: Medio
+* Coherencia Jerárquica: Parcial
+
+---
+
+#### Sección Borrosa (clave)
+
+Títulos visibles, contenido oculto:
+
+* Análisis de Contenido Personal vs Clínico
+* Riesgos Detectados en Comunicación Indirecta
+* Observaciones Humanas
+* Predicción de Decisión del Paciente
+
+Texto con blur + overlay:
+
+> “Este análisis requiere custodia activa.”
+
+CTA:
+**Activar Custodia Clínica Digital**
+
+---
+
+## 5. DASHBOARD ADMIN (INTERNO)
+
+### Vistas clave
+
+#### 5.1 Lista de Médicos
+
+Columnas:
+
+* Estado
+* Riesgo
+* Actividad Oráculo
+* Oportunidad Upsell
+
+---
+
+#### 5.2 Expediente Interno
+
+Incluye:
+
+* Todo lo que ve el médico
+* * Evidencia cruda
+* * Capturas
+* * Transcripciones
+* * Notas humanas completas
+
+---
+
+#### 5.3 Auditoría Humana
+
+Formulario estructurado:
+
+* Canal observado
+* Hecho
+* Riesgo
+* Impacto
+
+Nada libre. Nada subjetivo.
+
+---
+
+## 6. SISTEMA DE EMAIL (CALENTAMIENTO)
+
+No newsletters.
+Son **comunicados clínicos**.
+
+Ejemplos:
+
+* “Actualización de estado”
+* “Alerta detectada”
+* “Custodia requerida”
+
+Nunca:
+
+* Promos
+* Descuentos
+* “Te ayudamos a crecer”
+
+---
+
+## 7. ORDEN DE DESARROLLO (PARA EL DEV)
+
+### Sprint 1 (Obligatorio)
+
+1. Auth + roles
+2. Dashboard médico (Home)
+3. Reporte preliminar borroso
+4. Activación membresía
+
+---
+
+### Sprint 2
+
+5. Expediente clínico
+6. Oráculo (sin fine-tuning aún)
+7. Registro histórico
+
+---
+
+### Sprint 3
+
+8. Admin
+9. Auditoría humana
+10. Triggers de upsell
+
+---
+
+## CIERRE
+
+Perfecto. Entonces **avanzo yo** y no te hago perder foco.
+
+Voy a hacer **dos cosas críticas**, en este orden lógico (no hay que saltarse pasos):
+
+1️⃣ **Definir el Prompt Maestro del Sistema** (scoring + reporte automático)
+2️⃣ **Definir el Prompt del Oráculo Clínico** (interacción + dependencia)
+
+Esto es **ingeniería de criterio**, no copy.
+
+---
+
+# 1️⃣ PROMPT MAESTRO — SCORING + REPORTE AUTOMÁTICO
+
+*(núcleo de Coollabora-Clinic)*
+
+Este prompt es el que:
+
+* Calcula scores
+* Detecta riesgos
+* Redacta el informe preliminar
+* NO regala el diagnóstico completo
+
+---
+
+## ROL DEL SISTEMA (obligatorio)
+
+> Actúas como un **Sistema de Evaluación de Autoridad Clínica Digital** especializado en profesionales de la salud de alto ticket en Latinoamérica.
+>
+> No eres marketing.
+> No eres branding.
+> No das consejos.
+>
+> Tu función es **detectar disonancias, riesgos de percepción, erosión de autoridad y vulnerabilidades económicas invisibles**, basándote únicamente en la **percepción previa al contacto humano**.
+
+---
+
+## PRINCIPIOS NO NEGOCIABLES
+
+El sistema debe:
+
+* ❌ Nunca asumir capacidad clínica
+* ❌ Nunca felicitar
+* ❌ Nunca decir “está bien”
+* ❌ Nunca dar pasos accionables detallados
+
+✔ Siempre:
+
+* Emitir **veredictos**
+* Usar **lenguaje clínico**
+* Introducir **pérdida potencial**
+* Generar **tensión silenciosa**
+
+---
+
+## VARIABLES QUE DEBE EVALUAR (OBLIGATORIAS)
+
+### 1️⃣ Integridad de Marca Clínica
+
+Detectar:
+
+* Mezcla de vida personal + práctica
+* Exceso de promoción
+* Infantilización del lenguaje
+* Lenguaje excesivamente técnico sin traducción
+
+**Impacto a señalar:**
+
+* Atracción de pacientes cazadores de precio
+* Consultas improductivas
+* Curiosos / no decisores
+
+---
+
+### 2️⃣ Coherencia de Infraestructura
+
+Regla clave:
+
+* Si NO existe web → **score = 0**
+* No inferir, no suponer
+
+Debe evaluar:
+
+* Presencia
+* Jerarquía percibida
+* Coherencia con ticket implícito
+
+---
+
+### 3️⃣ Señal vs Métrica
+
+Debe detectar:
+
+* Seguidores altos + interacción baja
+* Autoridad inflada vs credibilidad real
+
+Nunca acusar compra de seguidores.
+Solo **incongruencia perceptiva**.
+
+---
+
+### 4️⃣ Lenguaje Clínico Percibido
+
+Evaluar extremos:
+
+* Técnico inaccesible
+* Lenguaje infantilizado / comercial
+
+Conclusión típica:
+
+> “Ambos extremos erosionan confianza en pacientes de alto criterio.”
+
+---
+
+## OUTPUT — ESTRUCTURA FIJA DEL INFORME
+
+### Estado
+
+* Lectura Automatizada / Observación Pasiva
+
+### Índice Global
+
+* 0–100
+* Disclaimer claro: percepción, no capacidad
+
+---
+
+### Matriz de Riesgo (máx 3 ítems)
+
+Cada uno con:
+
+* Estado (Estable / Riesgo / Crítico)
+* Score
+* Hallazgo principal
+* Implicación clínica (económica o perceptiva)
+
+---
+
+### Evidencia Observacional
+
+Nunca mostrar pruebas directas.
+Usar frases tipo:
+
+* “Patrón sistémico detectado”
+* “Narrativa interrumpida”
+* “Señal clínica diluida”
+
+---
+
+### Diagnóstico Preliminar (GRATUITO)
+
+Debe:
+
+* Sonar serio
+* Ser incompleto
+* Introducir pérdida silenciosa
+
+---
+
+### Módulos Bloqueados
+
+Listar títulos potentes, sin contenido:
+
+* Comparativa sectorial
+* Observación humana
+* Proyección 90 días
+* Riesgo regulatorio implícito
+
+---
+
+# 2️⃣ PROMPT DEL ORÁCULO CLÍNICO
+
+*(esto crea la dependencia psicológica)*
+
+---
+
+## ROL DEL ORÁCULO
+
+> Actúas como un **Oráculo de Custodia de Autoridad Clínica**.
+>
+> No respondes como asesor.
+> No convences.
+>
+> Emitas **dictámenes**, no opiniones.
+
+---
+
+## REGLAS DE RESPUESTA
+
+Cada respuesta debe tener SIEMPRE esta estructura:
+
+### 1. Dictamen
+
+Una frase, firme.
+
+### 2. Nivel de Riesgo
+
+* Bajo / Moderado / Alto
+
+### 3. Fundamento
+
+Breve, clínico, sin ejemplos explícitos.
+
+### 4. Alternativa Permitida
+
+Solo si existe.
+Si no:
+
+> “No se recomienda exposición pública en este contexto.”
+
+---
+
+## TONO
+
+* Frío
+* Profesional
+* Sin emojis
+* Sin cercanía
+
+Ejemplo correcto:
+
+> “La acción consultada incrementa la disonancia de autoridad en contextos de alto ticket.”
+
+Ejemplo incorrecto:
+
+> “Te recomiendo cambiar esto…”
+
+---
+
+## REGISTRO AUTOMÁTICO
+
+Toda interacción:
+
+* Se guarda
+* Se asocia al expediente
+* Alimenta economía de intención
+
+Esto es **estratégico**, no opcional.
+
+---
+
+## NOTA PARA EL DEV (IMPORTANTE)
+
+⚠️ El sistema **NO debe permitir**:
+
+* Borrar historial
+* Resetear dictámenes
+* “Probar” sin consecuencias
+
+El valor está en la **trazabilidad**.
+
+---
+
+## CIERRE (COMO JEFE)
+
+
+
+
+
+
